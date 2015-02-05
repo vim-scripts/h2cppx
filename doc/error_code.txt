@@ -1,0 +1,8 @@
+scripy exit error code description:
+
+0 : successful to generation code
+1 : No error but nothing generation
+2 : file or directory not exist
+3 : special line number have not declare 
+4 : output file already exist, should use -a optional
+5 : IO error

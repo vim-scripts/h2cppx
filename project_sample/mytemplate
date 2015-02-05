@@ -1,0 +1,60 @@
+#是否添加头文件的doxygen注释
+DOXYGEN : No
+
+#相邻变量定义的空行数
+VARIABLE_INTERVAL : 2
+
+#相邻函数定义的空行数
+FUNCTION_INTERVAL : 2
+
+#变量定义生成格式
+VARIABLE : "$variable.sign_type $variable.sign_name;" 
+
+#函数定义生成格式
+FUNCTION : "
+
+#if not $function.constructor and not $function.destructor:
+${function.return_type} #slurp
+#end if
+${function.sign_name}(#slurp
+#for $p in $function.parameters:
+$p.type $p.name#slurp
+#if $function.parameters.index($p)!=$len($function.parameters)-1
+, #slurp
+#end if
+#end for 
+) 
+{
+
+} 
+
+"
+
+#以下皆为可选项
+#变量定义开始处添加描述
+VARIABLE_START : ""
+
+#变量定义结束处添加描述
+VARIABLE_END : ""
+
+#函数定义开始处添加描述
+FUNCTION_START : ""
+
+#函数定义结束处添加描述
+FUNCTION_END : ""
+
+#类定义开始处添加描述
+CLASS_START : ""
+
+#类定义结束处添加描述
+CLASS_END : ""
+
+#头文件开始处添加描述
+HEADER_START : "
+\\#include \"$header.filename\"
+"
+
+#头文件处添加描述
+HEADER_END : ""
+
+

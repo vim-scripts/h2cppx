@@ -1,0 +1,94 @@
+#Whether to add headers doxygen comments
+DOXYGEN : No
+
+#The number of empty rows adjacent variable definitions
+VARIABLE_INTERVAL : 2
+
+#Empty rows adjacent function definition
+FUNCTION_INTERVAL : 2
+
+#Generate variable definition format
+VARIABLE : "$variable.sign_type $variable.sign_name;" 
+
+#Generating function definition format
+FUNCTION : "
+
+#set $space=' '
+#set $l=$len($function.return_type)+$len($function.sign_name)+2
+#if $function.access: /* $function.access */
+#if not $function.constructor and not $function.destructor:
+${function.return_type} #slurp
+#else
+#set $l=$l-5
+#end if
+${function.sign_name}(
+#for $p in $function.parameters:
+#repeat $l
+$space#slurp
+#end repeat
+$p.type $p.name#slurp
+#if $p.default_value
+ /* =$p.default_value */ #slurp
+#end if
+#if $function.parameters.index($p)!=$len($function.parameters)-1
+, 
+#else
+
+#end if
+#end for 
+#repeat $l
+$space#slurp
+#end repeat
+) 
+{
+#if $function.return_type == 'void':
+
+#else if $function.returns in ['int','unsigned int','long','unsigned long','char','unsigned char']:
+    return 0;
+#else if $function.returns == 'bool'
+    return false;
+#else if $function.returns == 'float': 
+    return 0.0f;
+#else if $function.returns == 'double':
+    return 0.0;
+#else
+    return ${function.returns}();
+#end if
+} 
+
+"
+
+#Optional:
+
+#Description at the beginning of the variable definition
+VARIABLE_START : ""
+
+#Description at the end of the variable definition
+VARIABLE_END : ""
+
+#Description at the beginning of the function definition
+FUNCTION_START : ""
+
+#Description at the end of the function definition
+FUNCTION_END : ""
+
+#Class at the beginning of the definnition
+CLASS_START : ""
+
+#Class at the end of the definnition
+CLASS_END : ""
+
+#Header file at the beginning of the definnition
+HEADER_START : "
+/* 
+ * Auto generate by h2cppx
+ */
+
+
+\\#include \"$header.filename\"
+"
+
+#Header file at the end of the definnition
+HEADER_END : ""
+
+
